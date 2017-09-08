@@ -12,8 +12,8 @@ def validator(schema):
                 jsonschema.validate(await request.json(), schema)
                 return await func(request)
             except jsonschema.ValidationError as e:
-                raise web.HTTPBadRequest(reason=e.message)
+                raise ValueError(e.message)
             except json.decoder.JSONDecodeError as e:
-                raise web.HTTPBadRequest(reason=e.msg)
+                raise ValueError(e.msg)
         return validate
     return wrapper

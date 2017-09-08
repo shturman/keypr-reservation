@@ -1,2 +1,4 @@
 aiohttp
 jsonschema
+python-dateutil
+uvloop; sys_platform != 'win32'
