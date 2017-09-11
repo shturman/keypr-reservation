@@ -1,0 +1,18 @@
+FROM python:3.6.2
+
+RUN pip3 install gunicorn
+
+COPY requirements.txt /tmp/
+RUN pip3 install -r /tmp/requirements.txt
+
+# Gunicorn
+ADD docker/gunicorn.ini /opt/keypr-reservations/
+
+# Sources
+ADD *.py /opt/keypr-reservations/
+
+WORKDIR /opt/keypr-reservations
+
+EXPOSE 80
+
+CMD ["gunicorn", "app:aio_app", "--config", "gunicorn.ini"]
